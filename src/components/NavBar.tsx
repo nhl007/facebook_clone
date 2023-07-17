@@ -1,19 +1,31 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { BiSolidHome, BiSolidBell } from 'react-icons/bi';
+import { CgProfile } from 'react-icons/cg';
+import { BsFillPeopleFill, BsMessenger, BsSearch } from 'react-icons/bs';
 
 export default function NavBar({ currentTab, setCurrentTab }: navProps) {
   return (
-    <nav className='flex flex-col px-4 pt-3 bg-black_faded'>
+    <nav className='flex flex-col px-4 pt-3 bg-black_faded sticky top-0 z-[999]'>
       {/*//? first nav */}
-      <div className='flex justify-between items-center mb-3'>
+      <div
+        className={`${
+          currentTab === 'home'
+            ? 'flex justify-between items-center mb-3'
+            : 'hidden'
+        }`}
+      >
         <div>
-          <Link href='/' className=' text-[24px]'>
-            SrjBook
+          <Link href='/' className=' text-[28px] font-bold text-blue'>
+            facebook
           </Link>
         </div>
         <div className='flex gap-4'>
-          <Link href='/search'>Search</Link>
-          <Link href='/messenger'>messenger</Link>
+          <Link href='/search'>
+            <BsSearch size={28} />
+          </Link>
+          <Link href='/messenger'>
+            <BsMessenger size={28} />
+          </Link>
         </div>
       </div>
 
@@ -21,65 +33,44 @@ export default function NavBar({ currentTab, setCurrentTab }: navProps) {
       <div className='flex justify-between items-start z-[1]'>
         <div
           className={` cursor-pointer px-3 pb-1 ${
-            currentTab === 'home' && 'border-b-[5px] border-b-blue'
+            currentTab === 'home' &&
+            'border-b-[3px] text-blue border-b-blue rounded-b-sm'
           }  `}
           onClick={() => setCurrentTab('home')}
         >
-          <Image
-            style={{ color: 'white', fill: 'currentcolor' }}
-            color='blue'
-            alt='home'
-            width={32}
-            height={32}
-            src='assets/icons/home_tab.svg'
-            className=' text-blue fill-neutral-500'
-          />
+          <BiSolidHome size={28} />
         </div>
 
         <div
           className={` cursor-pointer px-3 pb-1 ${
             currentTab === 'friends' &&
-            'border-b-[5px] border-b-blue text-blue-400'
+            'border-b-[3px] text-blue border-b-blue rounded-b-sm'
           }  `}
           onClick={() => setCurrentTab('friends')}
         >
-          <Image
-            alt='home'
-            width={32}
-            height={32}
-            src='assets/icons/home_tab.svg'
-          />
+          <BsFillPeopleFill size={28} />
         </div>
         <div
           className={` cursor-pointer px-3 pb-1 ${
             currentTab === 'notification' &&
-            'border-b-[5px] border-b-blue-400 text-blue-400'
+            'border-b-[3px] border-b-blue text-blue rounded-b-sm'
           }  `}
           onClick={() => setCurrentTab('notification')}
         >
-          <Image
-            alt='home'
-            width={32}
-            height={32}
-            src='assets/icons/home_tab.svg'
-          />
+          <BiSolidBell size={28} />
         </div>
         <div
           className={` cursor-pointer px-3 pb-1 ${
             currentTab === 'profile' &&
-            'border-b-[5px] border-b-blue-400 text-blue-400'
+            'border-b-[3px] border-b-blue text-blue rounded-b-sm'
           }  `}
           onClick={() => setCurrentTab('profile')}
         >
-          <Image
-            alt='home'
-            width={32}
-            height={32}
-            src='assets/icons/home_tab.svg'
-          />
+          <CgProfile size={28} />
         </div>
       </div>
-      <div className=' h-[1px] max-w-[100vw] mx-[-16px] bg-white mt-[-1px]' />
+
+      <div className=' h-[0.1px] max-w-[100vw] mx-[-16px] bg-ash mt-[-1px]' />
     </nav>
   );
 }

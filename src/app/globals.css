@@ -5,4 +5,19 @@
 body {
   color: #e4e6eb;
   background-color: #18191a;
+
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+.__input_auth {
+  border: 1px solid #1877f2;
+  box-shadow: 0px 3px 6px rgba(26, 127, 221, 0.156);
+  border-radius: 6px;
 }

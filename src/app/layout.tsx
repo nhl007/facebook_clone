@@ -1,3 +1,4 @@
+import AppProvider from '@/providers/AppProvider';
 import './globals.css';
 // import { Inter } from 'next/font/google';
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body suppressHydrationWarning={true}>
+        <AppProvider>{children}</AppProvider>
+      </body>
     </html>
   );
 }

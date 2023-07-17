@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function CreatePostLay() {
   return (
-    <section className='flex justify-between px-4 py-3 bg-black_faded'>
+    <section className='flex justify-between items-center px-4 pb-3 pt-3 bg-black_faded'>
       {/* //:todo  profile page*/}
       <Link
         href='profile'

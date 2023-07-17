@@ -2,13 +2,12 @@ import Image from 'next/image';
 
 const LoadingSpinner = () => {
   return (
-    <div className='fixed top-0 w-[100vw] h-[100vh] flex justify-center items-center'>
+    <div className='fixed left-0 top-0 w-[100vw] h-[100vh] flex justify-center items-center z-[999]'>
       <Image
         src='assets/icons/loader.svg'
-        width={50}
-        height={50}
+        width={60}
+        height={60}
         alt='loader'
-        className='object-contain'
       />
     </div>
   );
