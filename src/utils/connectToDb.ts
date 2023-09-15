@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const environment = process.env.ENV_environment;
+const environment = process.env.ENV_MODE;
 
 const uri: string =
   environment === 'PROD'

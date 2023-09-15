@@ -11,29 +11,33 @@ type body = {
 };
 
 export async function POST(request: Request) {
-  const body: body = await request.json();
+  try {
+    const body: body = await request.json();
 
-  const { name, email, password } = body;
+    const { name, email, password } = body;
 
-  if (!name || !email || !password) {
-    return new NextResponse('Missing Fields', { status: 400 });
+    if (!name || !email || !password) {
+      return new NextResponse('Missing Fields', { status: 400 });
+    }
+
+    await connectToDB();
+
+    const userExists = await User.findOne({ email: email });
+
+    if (userExists) {
+      throw new Error('Email already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      email: email,
+      username: name?.replace(' ', '').toLowerCase(),
+      password: hashedPassword,
+    });
+
+    return NextResponse.json(user);
+  } catch (err: any) {
+    return NextResponse.json(err.message, { status: 400 });
   }
-
-  await connectToDB();
-
-  const userExists = await User.findOne({ email: email });
-
-  if (userExists) {
-    throw new Error('Email already exists');
-  }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const user = await User.create({
-    email: email,
-    username: name?.replace(' ', '').toLowerCase(),
-    password: hashedPassword,
-  });
-
-  return NextResponse.json(user);
 }

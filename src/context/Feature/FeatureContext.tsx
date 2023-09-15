@@ -1,18 +1,14 @@
-import { Dispatch, createContext, useContext, useReducer } from 'react';
-import { DISPLAY_ALERT, CLEAR_ALERT, SET_IS_LOADING } from './actions';
+import { createContext, useContext, useReducer } from 'react';
+
+import { DISPLAY_ALERT, CLEAR_ALERT, SET_IS_LOADING } from '../actions';
+
 import reducer from './reducer';
 
 const initialState: initialFeatureContextStateType = {
   showAlert: false,
   alertText: '',
   alertSuccess: false,
-  isLoading: false,
-};
-
-type FeatureContextType = {
-  state: initialFeatureContextStateType;
-  displayAlert: (alertText: string, Success: boolean) => void;
-  setIsLoading: (isLoading: boolean) => void;
+  isLoading: true,
 };
 
 const initialContextValue: FeatureContextType = {
@@ -34,6 +30,12 @@ const FeatureProvider = ({ children }: onlyChildrenProps) => {
     }, 3000);
   };
 
+  /**
+   *
+   * @param alertText The message to display
+   * @param Success alert type => if true, green | red alert
+   */
+
   const displayAlert = (alertText: string, Success = true) => {
     dispatch({
       type: DISPLAY_ALERT,
@@ -44,6 +46,11 @@ const FeatureProvider = ({ children }: onlyChildrenProps) => {
     });
     clearAlert();
   };
+
+  /**
+   *
+   * @param isLoading if true show the alert else hide the alert
+   */
 
   const setIsLoading = (isLoading: boolean) => {
     dispatch({ type: SET_IS_LOADING, payload: { isLoading: isLoading } });
@@ -62,8 +69,8 @@ const FeatureProvider = ({ children }: onlyChildrenProps) => {
   );
 };
 
-const useFeatureContext = () => {
+export const useFeatureContext = () => {
   return useContext(FeatureContext);
 };
 
-export { FeatureProvider, initialState, useFeatureContext };
+export default FeatureProvider;

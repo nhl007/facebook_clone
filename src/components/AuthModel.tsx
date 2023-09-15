@@ -1,11 +1,10 @@
 'use client';
 
-import { useFeatureContext } from '@/context/Feature/FeatureContext';
 import { signIn, useSession } from 'next-auth/react';
 import { FormEvent, useEffect, useState } from 'react';
-// import LoadingSpinner from './Loading';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useFeatureContext } from '@/context/feature/FeatureContext';
 import Alert from './Alert';
 
 type authModelProps = {
@@ -13,13 +12,13 @@ type authModelProps = {
 };
 
 const AuthModel = ({ type }: authModelProps) => {
-  const {
-    state: { isLoading, showAlert },
-    displayAlert,
-  } = useFeatureContext();
-
   const router = useRouter();
   const { status } = useSession();
+  const {
+    state: { showAlert },
+    displayAlert,
+    setIsLoading,
+  } = useFeatureContext();
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -47,17 +46,20 @@ const AuthModel = ({ type }: authModelProps) => {
           password: password,
         };
 
-        await fetch('api/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        })
-          .then((response) => {
-            console.log(response.json());
-          })
-          .catch((err) => {
-            console.log(err);
+        try {
+          const res = await fetch('api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
           });
+
+          if (res.ok) router.push('/');
+          else throw new Error(await res.json());
+        } catch (error) {
+          error instanceof Error
+            ? displayAlert(error.message, false)
+            : displayAlert('Error Ocurred', false);
+        }
       }
     } else {
       if (!password || !email) {
@@ -67,11 +69,10 @@ const AuthModel = ({ type }: authModelProps) => {
           email: email,
           password: password,
         };
-        signIn('credentials', { ...data, redirect: false }).then((response) => {
+        signIn('credentials', { ...data, redirect: true }).then((response) => {
           if (response?.error) {
             displayAlert(response.error, false);
           }
-          console.log(response);
         });
       }
     }

@@ -1,4 +1,4 @@
-import { DISPLAY_ALERT, CLEAR_ALERT, SET_IS_LOADING } from './actions';
+import { DISPLAY_ALERT, CLEAR_ALERT, SET_IS_LOADING } from '../actions';
 
 const reducer = (
   state: initialFeatureContextStateType,
@@ -23,10 +23,9 @@ const reducer = (
   if (action.type === SET_IS_LOADING) {
     return {
       ...state,
-      isLoading: action.payload?.type as boolean,
+      isLoading: action.payload?.isLoading as boolean,
     };
   }
-
   throw new Error(`no such action :${action.type}`);
 };
 

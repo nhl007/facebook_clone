@@ -29,29 +29,23 @@ export const authOptions: AuthOptions = {
         },
       },
       async authorize(credentials) {
-        // check to see if email and password is there
-        // console.log(credentials);
-
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Please enter an email and password');
         }
 
-        // check to see if user exists
         await connectToDB();
 
         const user = await User.findOne({ email: credentials.email });
 
-        // if no user was found
         if (!user || !user.password) {
           throw new Error('No user found');
         }
 
-        // check to see if password matches
         const passwordMatch = await bcrypt.compare(
           credentials.password,
           user.password
         );
-        // if password does not match
+
         if (!passwordMatch) {
           throw new Error('Incorrect password');
         }
@@ -89,10 +83,13 @@ export const authOptions: AuthOptions = {
         }
         return true;
       } catch (error) {
-        console.log(
-          'Error checking if user exists: ',
-          (error as Error).message
-        );
+        if (error instanceof Error) {
+          console.log(
+            'Error checking if user exists: ',
+            (error as Error).message
+          );
+        }
+
         return true;
       }
     },

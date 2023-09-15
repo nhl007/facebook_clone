@@ -25,10 +25,16 @@ const postSchema = new Schema({
       'To create a post you at least have to write the caption!',
     ],
   },
-  imageUrl: {
-    type: String,
-    required: false,
-  },
+  images: [
+    {
+      key: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -46,24 +52,24 @@ const postSchema = new Schema({
     care: {
       type: Number,
     },
-    comments: [
-      {
-        userId: {
-          type: Schema.Types.ObjectId,
-          required: true,
-          ref: 'User',
-        },
-        comment: {
-          type: String,
-          required: true,
-        },
-        time: {
-          type: Date,
-          default: Date.now(),
-        },
-      },
-    ],
   },
+  comments: [
+    {
+      userId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User',
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+      time: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
+  ],
 });
 
 const Post = models.Post || model('Post', postSchema);

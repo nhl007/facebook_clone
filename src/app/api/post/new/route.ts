@@ -1,43 +1,42 @@
-// import { uploadToCloudinary } from '@/utils/uploadToCloud';
-import { createWriteStream } from 'fs';
-import { NextRequest, NextResponse } from 'next/server';
-import { join } from 'path';
+// import { authOptions } from '@/lib/auth';
+// import Post from '@/models/posts';
+// import { uploadAllImages } from '@/utils/cloudinary';
+// import { getServerSession } from 'next-auth';
+// import { NextRequest, NextResponse } from 'next/server';
 
-type newPostMeta = {
-  caption: string;
-  image: string;
-};
+// export async function POST(request: NextRequest) {
+//   try {
+//     const user = await getServerSession(authOptions);
+//     console.log(user);
+//     const formData = await request.formData();
 
-export async function POST(request: NextRequest) {
-  const formData = await request.formData();
+//     // const postData ={
+//     //   user:user_id,
+//     //   type:formData. ||'public',
+//     //   caption:caption,
+//     //   images:ImageResponse,
+//     // }
 
-  const file = formData.get('file');
-  // const stream = file?.toString();
+//     const postData = {};
 
-  console.log(file?.stream());
-  // Generate a unique filename or use the original filename
-  // if (!file) {
-  //   return new NextResponse();
-  // }
-  // const fileName = `${Date.now()}_`;
+//     for (const pair of formData.entries()) {
+//       postData[pair[0]] = pair[1];
+//     }
 
-  //   // Define the path where the file will be saved
-  //   const filePath = join(process.cwd(), 'uploads', fileName);
+//     console.log(postData);
+//     // const images = await uploadAllImages(formData);
+//     // const post=await Post.create(images)
+//     // return NextResponse.json(images);
+//     return NextResponse.json('ok');
+//   } catch (error: any) {
+//     return new NextResponse(
+//       JSON.stringify({ success: false, error: error.message })
+//     );
+//   }
+// }
 
-  //   // Create a writable stream and pipe the file data to it
-  //   const writeStream = createWriteStream(filePath);
-  //   await new Promise((resolve, reject) => {
-  //     file..pipe(writeStream);
-  //     file.data.on('end', resolve);
-  //     writeStream.on('error', reject);
-  //   });
+import { NextResponse } from 'next/server';
 
-  //   // Respond with the file path
-  //   res.status(200).json({ filePath });
-  // } catch (error) {
-  //   console.error('An error occurred while uploading the file:', error);
-  //   res.status(500).json({ message: 'File upload failed' });
-  // }
-
-  return new NextResponse(JSON.stringify({ success: true }));
+export async function GET(request: Request) {
+  return NextResponse.json({ ok: 'ok' }, { status: 200 });
 }

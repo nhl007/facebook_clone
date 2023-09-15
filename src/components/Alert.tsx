@@ -1,6 +1,6 @@
 'use client';
 
-import { useFeatureContext } from '@/context/Feature/FeatureContext';
+import { useFeatureContext } from '@/context/feature/FeatureContext';
 
 function Alert() {
   const {
@@ -10,9 +10,9 @@ function Alert() {
     <div
       className={` ${
         alertSuccess ? 'bg-green-500' : 'bg-red'
-      } absolute bottom-0 w-full py-2 px-1 flex justify-center items-center`}
+      } fixed bottom-0 right-0 mr-1 mb-1 py-1 px-2 text-xs flex justify-center items-center`}
     >
-      <h1>{alertText}</h1>
+      <p>{alertText}</p>
     </div>
   );
 }

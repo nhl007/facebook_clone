@@ -6,6 +6,8 @@ import NotificationTab from './NotificationTab';
 import ProfileTab from './ProfileTab';
 import PostCard from './PostCard';
 import SmallRoundedPic from './SmallRoundedPic';
+import CreatePostLay from './CreatePost';
+import ViewStoryLay from './ViewStory';
 export {
   NavBar,
   Footer,
@@ -15,4 +17,6 @@ export {
   ProfileTab,
   PostCard,
   SmallRoundedPic,
+  CreatePostLay,
+  ViewStoryLay,
 };
